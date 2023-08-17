@@ -3,9 +3,12 @@ import TrapperKeepPasswordGen as PasswordGenFunc
 window = tk.Tk()
 window.wm_title('TrapperKeeper')
 
-def generate_password(password_length):
-    password_generated = PasswordGenFunc.generate_password(password_length)
+
+def get_password(password_length):
+    password_generated = PasswordGenFunc.generate_password(password_length, include_digits.get(), include_special.get())
     password_output["text"] = password_generated
+
+
 
 
 
@@ -18,16 +21,13 @@ instructions = tk.Label(text='Instructions: TrapperKeeper is a random password g
 intro.pack()
 instructions.pack()
 
-twenty_checkbox = tk.Checkbutton(window, text='20 Character Password', onvalue=1, offvalue=0, command='20')
-twenty_checkbox.pack()
+include_digits = tk.BooleanVar()
+include_special = tk.BooleanVar()
 
-ten_checkbox = tk.Checkbutton(window, text='10 Character Password', onvalue=1, offvalue=0, command='10')
-ten_checkbox.pack()
+includeDigits_checkbox = tk.Checkbutton(window, text='Include Digits', onvalue=True, offvalue=False, command='digits', variable=include_digits)
+includeDigits_checkbox.pack()
 
-mixedchar_checkbox = tk.Checkbutton(window, text='Mixed Character Password', onvalue=1, offvalue=0, command='mixed')
-mixedchar_checkbox.pack()
-
-specialchar_checkbox = tk.Checkbutton(window, text='Include Special Characters in Password', onvalue=1, offvalue=0, command='special')
+specialchar_checkbox = tk.Checkbutton(window, text='Include Special Characters', onvalue=True, offvalue=False, command='special', variable=include_special)
 specialchar_checkbox.pack()
 
 
@@ -37,7 +37,7 @@ ten_button = tk.Button(
     height=5,
     bg="black",
     fg="green",
-    command=lambda: generate_password(10))
+    command=lambda: get_password(10))
 
 twenty_button = tk.Button(
     text="Generate 20 Character Password",
@@ -45,7 +45,7 @@ twenty_button = tk.Button(
     height=5,
     bg="black",
     fg="green",
-    command=lambda: generate_password(20))
+    command=lambda: get_password(20))
 
 copy_button = tk.Button(
     text="Copy Password",
@@ -55,17 +55,10 @@ copy_button = tk.Button(
     fg="green",
     command='')
 
-newpassword_button = tk.Button(
-    text="Create New Password",
-    width=25,
-    height=5,
-    bg="black",
-    fg="green",
-    command='')
 
 ten_button.pack()
 twenty_button.pack()
 copy_button.pack()
-newpassword_button.pack()
+
 password_output.pack()
 window.mainloop()
