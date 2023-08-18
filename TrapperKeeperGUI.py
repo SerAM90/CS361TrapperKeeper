@@ -7,7 +7,9 @@ from PIL import ImageTk, Image
 window = tk.Tk()
 window.wm_title('TrapperKeeper')
 
-
+'''
+Functions below for GUI to TrapperKeepPasswordGen interactions - Getting the password, and Copy button for the GUI
+'''
 def get_password(password_length):
 
     try:
@@ -28,7 +30,9 @@ def copy_password():
     window.update()
     print("Password copied to clipboard!")
 
-
+'''
+Labels and instructions below
+'''
 password_output = tk.Label(text='')
 intro = tk.Label(text='Hello!, and Welcome to TrapperKeeper! A local password generator without encryption that allows you to generate a random password.')
 instructions = tk.Label(text='Instructions: TrapperKeeper is a random password generator! \n'
@@ -56,7 +60,9 @@ password_length_entry = tk.Entry(window)
 password_length_entry.pack()
 
 
-
+'''
+Checkboxes located below
+'''
 
 copy_button = tk.Button(
     text="Copy Password",
@@ -74,7 +80,9 @@ generate_password_button = tk.Button(
     fg="green",
     command=lambda: get_password(password_length_entry))
 
-
+'''
+GUI button packs()
+'''
 generate_password_button.pack()
 copy_button.pack()
 

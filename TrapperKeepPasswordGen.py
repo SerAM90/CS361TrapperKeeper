@@ -8,6 +8,11 @@ password_special = ['!', '@', '-', '_', '&', '#', '%'] #list of special chars th
 
 
 def generate_password(password_length, include_numerical, include_special):
+    '''
+    Generates a randomized password that may contain password_special, and password numerical.
+    Password is passed through validation microservice with a dictionary to make sure it
+    contains the right elements.
+    '''
     valid_password = False
     generated_password = ''
 
@@ -17,7 +22,7 @@ def generate_password(password_length, include_numerical, include_special):
         password_list = password_list + space_str
     if include_special:
         space_str = ''.join(password_special)
-        password_list = password_list + space_str
+        password_list = password_list + space_str  # checks and joins for appropriate password selection
 
     while valid_password is False:
         generated_password = ''
@@ -25,7 +30,6 @@ def generate_password(password_length, include_numerical, include_special):
             generated_password += ''.join(secrets.choice(password_list))
         password_dictionary = {
         'password': generated_password,
-        # 'password': 'wvFf75dIqMgfMO8s5mBH',
         'upper_length': password_length,
         'lower_length': password_length,
         'digit': include_numerical,
@@ -33,9 +37,9 @@ def generate_password(password_length, include_numerical, include_special):
         'lowercase': True,
         'symbol': include_special
         }
-        valid_password = ClientValidation.validate_password(password_dictionary)
+        valid_password = ClientValidation.validate_password(password_dictionary)  # sending the dictionary through the validation microservice
         print(password_dictionary)
-        print('Was the password valid?: ', valid_password)
+        print('Was the password valid?: ', valid_password)  # password = True? then it is output, if not it is run again until valid
     return generated_password
 
 
