@@ -1,19 +1,22 @@
 import tkinter as tk
 import TrapperKeepPasswordGen as PasswordGenFunc
+from tkinter import *
+from PIL import ImageTk, Image
 
 
 window = tk.Tk()
 window.wm_title('TrapperKeeper')
 
 
-# def get_password(password_length):
-#     password_generated = PasswordGenFunc.generate_password(password_length, include_digits.get(), include_special.get())
-#     password_output["text"] = password_generated
-
 def get_password(password_length):
     password_length = int(password_length_entry.get())
-    password_generated = PasswordGenFunc.generate_password(password_length, include_digits.get(), include_special.get())
-    password_output["text"] = password_generated
+    if 10 <= password_length <= 30:
+        password_generated = PasswordGenFunc.generate_password(password_length, include_digits.get(), include_special.get())
+        password_output["text"] = password_generated
+    else:
+        password_output["text"] = "Password length must be between 10 and 30 characters!"
+
+
 def copy_password():
     generated_password = password_output["text"]
     window.clipboard_clear()
@@ -22,13 +25,12 @@ def copy_password():
     print("Password copied to clipboard!")
 
 
-
 password_output = tk.Label(text='')
 intro = tk.Label(text='Hello!, and Welcome to TrapperKeeper! A local password generator without encryption that allows you to generate a random password.')
 instructions = tk.Label(text='Instructions: TrapperKeeper is a random password generator! \n'
                              'You may select the different checkbox options to customize your password experience! \n'
                              'Push the "Generate 10 character Password", or "Generate 20 character Password" '
-                             'to create a password of 10 or 20 characters in length!')
+                             'to create a password of 10 to 30 characters in length!')
 intro.pack()
 instructions.pack()
 
@@ -41,27 +43,14 @@ includeDigits_checkbox.pack()
 specialchar_checkbox = tk.Checkbutton(window, text='Include Special Characters', onvalue=True, offvalue=False, command='special', variable=include_special)
 specialchar_checkbox.pack()
 
-password_length_label = tk.Label(window, text="Enter a password length between 1-20: ")
+password_length_label = tk.Label(window, text="Enter a password length between 10-30: ")
 password_length_label.pack()
 
 password_length_entry = tk.Entry(window)
 password_length_entry.pack()
 
-ten_button = tk.Button(
-    text="Generate 10 Character Password",
-    width=25,
-    height=5,
-    bg="black",
-    fg="green",
-    command=lambda: get_password(10))
 
-twenty_button = tk.Button(
-    text="Generate 20 Character Password",
-    width=25,
-    height=5,
-    bg="black",
-    fg="green",
-    command=lambda: get_password(20))
+
 
 copy_button = tk.Button(
     text="Copy Password",
@@ -79,10 +68,10 @@ generate_password_button = tk.Button(
     fg="green",
     command=lambda: get_password(password_length_entry))
 
-ten_button.pack()
-twenty_button.pack()
+
 generate_password_button.pack()
 copy_button.pack()
+
 
 password_output.pack()
 window.mainloop()

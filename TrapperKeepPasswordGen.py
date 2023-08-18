@@ -38,4 +38,4 @@ def generate_password(password_length, include_numerical, include_special):
         print('Was the password valid?: ', valid_password)
     return generated_password
 
-    # return generated_password
+
