@@ -9,12 +9,16 @@ window.wm_title('TrapperKeeper')
 
 
 def get_password(password_length):
-    password_length = int(password_length_entry.get())
-    if 10 <= password_length <= 30:
-        password_generated = PasswordGenFunc.generate_password(password_length, include_digits.get(), include_special.get())
-        password_output["text"] = password_generated
-    else:
-        password_output["text"] = "Password length must be between 10 and 30 characters!"
+
+    try:
+        password_length = int(password_length_entry.get())
+        if 10 <= password_length <= 30:
+            password_generated = PasswordGenFunc.generate_password(password_length, include_digits.get(), include_special.get())
+            password_output["text"] = password_generated
+        else:
+            password_output["text"] = "Password length must be between 10 and 30 characters!"
+    except ValueError:
+        password_output["text"] = "Please enter a valid integer for your password length!"
 
 
 def copy_password():
@@ -29,8 +33,10 @@ password_output = tk.Label(text='')
 intro = tk.Label(text='Hello!, and Welcome to TrapperKeeper! A local password generator without encryption that allows you to generate a random password.')
 instructions = tk.Label(text='Instructions: TrapperKeeper is a random password generator! \n'
                              'You may select the different checkbox options to customize your password experience! \n'
-                             'Push the "Generate 10 character Password", or "Generate 20 character Password" '
-                             'to create a password of 10 to 30 characters in length!')
+                             'Input how many characters you would like your password to contain: you can pick from 10-30 characters \n'
+                             'Once you have decided your password length press "Generate Password" to create your random password \n'
+                             'If you are happy with your generated password, you may press the "Copy Password" to use your password!')
+
 intro.pack()
 instructions.pack()
 
