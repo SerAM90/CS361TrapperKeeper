@@ -6,10 +6,14 @@ window = tk.Tk()
 window.wm_title('TrapperKeeper')
 
 
+# def get_password(password_length):
+#     password_generated = PasswordGenFunc.generate_password(password_length, include_digits.get(), include_special.get())
+#     password_output["text"] = password_generated
+
 def get_password(password_length):
+    password_length = int(password_length_entry.get())
     password_generated = PasswordGenFunc.generate_password(password_length, include_digits.get(), include_special.get())
     password_output["text"] = password_generated
-
 def copy_password():
     generated_password = password_output["text"]
     window.clipboard_clear()
@@ -37,6 +41,11 @@ includeDigits_checkbox.pack()
 specialchar_checkbox = tk.Checkbutton(window, text='Include Special Characters', onvalue=True, offvalue=False, command='special', variable=include_special)
 specialchar_checkbox.pack()
 
+password_length_label = tk.Label(window, text="Enter a password length between 1-20: ")
+password_length_label.pack()
+
+password_length_entry = tk.Entry(window)
+password_length_entry.pack()
 
 ten_button = tk.Button(
     text="Generate 10 Character Password",
@@ -62,9 +71,17 @@ copy_button = tk.Button(
     fg="green",
     command=copy_password)
 
+generate_password_button = tk.Button(
+    text="Generate Password",
+    width=25,
+    height=5,
+    bg="black",
+    fg="green",
+    command=lambda: get_password(password_length_entry))
 
 ten_button.pack()
 twenty_button.pack()
+generate_password_button.pack()
 copy_button.pack()
 
 password_output.pack()
