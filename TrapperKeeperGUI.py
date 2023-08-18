@@ -1,5 +1,7 @@
 import tkinter as tk
 import TrapperKeepPasswordGen as PasswordGenFunc
+
+
 window = tk.Tk()
 window.wm_title('TrapperKeeper')
 
@@ -8,7 +10,12 @@ def get_password(password_length):
     password_generated = PasswordGenFunc.generate_password(password_length, include_digits.get(), include_special.get())
     password_output["text"] = password_generated
 
-
+def copy_password():
+    generated_password = password_output["text"]
+    window.clipboard_clear()
+    window.clipboard_append(generated_password)
+    window.update()
+    print("Password copied to clipboard!")
 
 
 
@@ -53,7 +60,7 @@ copy_button = tk.Button(
     height=5,
     bg="black",
     fg="green",
-    command='')
+    command=copy_password)
 
 
 ten_button.pack()
